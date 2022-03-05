@@ -1,0 +1,7 @@
+NtrCreateTimer:0
+NtrDestroyTimer:1
+NtrSetTimerLoop:2
+NtrSetTimerOnce:3
+NtrStartTimer:4
+NtrStopTimer:5
+NtrDelay:6

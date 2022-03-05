@@ -1,0 +1,250 @@
+; -----------------------------------------------
+;  The Neutrino Operating System Project
+;  Neutrino OS User Interface Library
+;  by Kovacs Lorand -- 2021.03.05.
+; -----------------------------------------------
+
+#include neutrino.ns
+
+#define WM_API 0
+
+#define WMC_CREATE_VIEW 0
+#define WMC_DESTROY_VIEW 1
+#define WMC_ADD_ELEMENT 2
+#define WMC_SET_ELEMENT 3
+#define WMC_DELETE_ELEMENT 4
+#define WMC_GET_PROPERTY 5
+#define WMC_SET_PROPERTY 6
+#define WMC_SWITCH_VIEW 7
+#define WMC_UPDATE_VIEW 8
+#define WMC_ATTACH_EVENT_HANDLER 9
+#define WMC_DETACH_EVENT_HANDLER 10
+
+#exlink WMInterrupt
+#exlink WMCreateWindow
+#exlink WMDestroyWindow
+#exlink WMSetElement
+#exlink WMRemoveElement
+#exlink WMGetElementProperty
+#exlink WMSetElementProperty
+#exlink WMSetActiveWindow
+#exlink WMUpdateView
+#exlink WMAttachEventHandler
+#exlink WMDetachEventHandler
+; #exlink WMSetListViewItems
+
+:main
+link neutrino.lnx
+; link util.lnx
+ret
+
+:WMInterrupt
+swscop 0
+stloc data
+ldb WM_API
+cast TYPE_STRING
+ldloc data
+add
+pushlx NtrKernelExec
+leap
+gc
+ret
+
+:WMCreateWindow
+swscop 1
+stloc layout
+ldb WMC_CREATE_VIEW
+cast TYPE_STRING
+ldloc layout
+add
+pushl WMInterrupt
+leap
+gc
+ret
+
+:WMDestroyWindow
+swscop 2
+stloc hwnd
+ldb WMC_DESTROY_VIEW
+cast TYPE_STRING
+ldloc hwnd
+add
+pushl WMInterrupt
+leap
+gc
+ret
+
+:WMSetElement
+swscop 4
+stloc element
+stloc id
+stloc hwnd
+ldb WMC_SET_ELEMENT
+cast TYPE_STRING
+ldloc hwnd
+add
+ldloc id
+add
+ldloc element
+add
+pushl WMInterrupt
+leap
+gc
+ret
+
+:WMRemoveElement
+swscop 5
+stloc id
+stloc hwnd
+ldb WMC_DELETE_ELEMENT
+cast TYPE_STRING
+ldloc hwnd
+add
+ldloc id
+add
+pushl WMInterrupt
+leap
+gc
+ret
+
+:WMGetElementProperty
+swscop 6
+stloc prop
+stloc id
+stloc hwnd
+ldb WMC_GET_PROPERTY
+cast TYPE_STRING
+ldloc hwnd
+add
+ldloc id
+add
+ldloc prop
+add
+pushl WMInterrupt
+leap
+gc
+ret
+
+:WMSetElementProperty
+swscop 7
+stloc prop_text
+stloc id
+stloc hwnd
+ldb WMC_SET_PROPERTY
+cast TYPE_STRING
+ldloc hwnd
+add
+ldloc id
+add
+ldloc prop_text
+add
+pushl WMInterrupt
+leap
+gc
+ret
+
+:WMSetActiveWindow
+swscop 8
+stloc hwnd
+ldb WMC_SWITCH_VIEW
+cast TYPE_STRING
+ldloc hwnd
+add
+pushl WMInterrupt
+leap
+gc
+ret
+
+:WMUpdateView
+swscop 9
+ldb WMC_UPDATE_VIEW
+pushl WMInterrupt
+leap
+gc
+ret
+
+:WMAttachEventHandler
+swscop 10
+stloc code_addr
+stloc id
+stloc hwnd
+ldb WMC_ATTACH_EVENT_HANDLER
+cast TYPE_STRING
+ldloc hwnd
+add
+ldloc id
+add
+ldloc code_addr
+add
+pushl WMInterrupt
+leap
+gc
+ret
+
+:WMDetachEventHandler
+swscop 11
+stloc id
+stloc hwnd
+ldb WMC_DETACH_EVENT_HANDLER
+cast TYPE_STRING
+ldloc hwnd
+add
+ldloc id
+add
+pushl WMInterrupt
+leap
+gc
+ret
+
+:WMSetListViewItems
+swscop 12
+; pop ___1 ; array of items
+; pop ___2 ; element ID
+; pop ___3 ; window handle
+; str ___c "Items:"
+; str ___s ","
+; ldlen ___1 ___ln
+; str ___i 0
+; jmp :loopAddItemToList
+; push ___3
+; push ___2
+; push ___c
+; call WMSetUserElementProperty
+; clr ___1
+; clr ___2
+; clr ___3
+; clr ___c
+; clr ___s
+; clr ___ln
+; clr ___i
+; clr ___e
+gc
+ret
+
+:loopAddItemToList
+; cmpi ___ln 0
+; lje :finishAddItemToList
+; lj :addItemToList
+ret
+
+:addItemToList
+; ldelem ___1 ___i ___e
+; push ___e
+; ldstr "\"
+; ldstr "\\"
+; leap ReplaceChars
+; ldstr ":"
+; ldstr "\:"
+; leap ReplaceChars
+; pop ___e
+; concat ___e ___c
+; concat ___s ___c
+; inc ___i 1
+; cmp ___i ___ln
+; ljl :addItemToList
+; lj :finishAddItemToList
+ret
+
+:finishAddItemToList
+; concat ___e ___c
+ret

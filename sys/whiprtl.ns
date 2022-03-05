@@ -1,0 +1,16 @@
+; -----------------------------------------------
+;  The Neutrino Operating System Project
+;  Whiplash Python Runtime Library
+;  by Kovacs Lorand -- 2021.03.05.
+; -----------------------------------------------
+
+#exlink print
+
+:main
+link neutrino.lnx
+ret
+
+:print
+pushlx NtrConsolePrint
+bre
+ret
