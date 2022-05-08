@@ -12,5 +12,5 @@ ret
 
 :print
 pushlx NtrConsolePrint
-bre
+leap
 ret

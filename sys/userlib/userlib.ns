@@ -39,7 +39,6 @@ link neutrino.lnx
 ret
 
 :WMInterrupt
-swscop 0
 stloc data
 ldb WM_API
 cast TYPE_STRING
@@ -51,7 +50,6 @@ gc
 ret
 
 :WMCreateWindow
-swscop 1
 stloc layout
 ldb WMC_CREATE_VIEW
 cast TYPE_STRING
@@ -63,7 +61,6 @@ gc
 ret
 
 :WMDestroyWindow
-swscop 2
 stloc hwnd
 ldb WMC_DESTROY_VIEW
 cast TYPE_STRING
@@ -75,7 +72,6 @@ gc
 ret
 
 :WMSetElement
-swscop 4
 stloc element
 stloc id
 stloc hwnd
@@ -93,7 +89,6 @@ gc
 ret
 
 :WMRemoveElement
-swscop 5
 stloc id
 stloc hwnd
 ldb WMC_DELETE_ELEMENT
@@ -108,7 +103,6 @@ gc
 ret
 
 :WMGetElementProperty
-swscop 6
 stloc prop
 stloc id
 stloc hwnd
@@ -126,7 +120,6 @@ gc
 ret
 
 :WMSetElementProperty
-swscop 7
 stloc prop_text
 stloc id
 stloc hwnd
@@ -144,7 +137,6 @@ gc
 ret
 
 :WMSetActiveWindow
-swscop 8
 stloc hwnd
 ldb WMC_SWITCH_VIEW
 cast TYPE_STRING
@@ -156,7 +148,6 @@ gc
 ret
 
 :WMUpdateView
-swscop 9
 ldb WMC_UPDATE_VIEW
 pushl WMInterrupt
 leap
@@ -164,7 +155,6 @@ gc
 ret
 
 :WMAttachEventHandler
-swscop 10
 stloc code_addr
 stloc id
 stloc hwnd
@@ -182,7 +172,6 @@ gc
 ret
 
 :WMDetachEventHandler
-swscop 11
 stloc id
 stloc hwnd
 ldb WMC_DETACH_EVENT_HANDLER
@@ -197,7 +186,6 @@ gc
 ret
 
 :WMSetListViewItems
-swscop 12
 ; pop ___1 ; array of items
 ; pop ___2 ; element ID
 ; pop ___3 ; window handle

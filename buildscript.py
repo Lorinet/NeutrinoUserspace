@@ -14,12 +14,12 @@ def copytree(src, dst):
 
 # Specify order of compilation
 libs = [
-    "neutrino.ns",
-    "util.ns",
-    "io.ns",
-    "timer.ns",
-    "userlib.ns",
-    "whiprtl.ns"
+    "neutrino",
+    "util",
+    "io",
+    "timer",
+    "userlib",
+    "whiprtl"
 ]
 
 print("NeutrinoOS Userspace Build Script")
@@ -47,8 +47,8 @@ try:
     os.system("mkdir " + os.path.join(outDir, "ndk", "lib"))
     for f in libs:
         print(f)
-        os.system("python3 " + os.path.join(toolsDir, "ntrasm.py") + " " + os.path.join(baseDir, "sys", f) + " " + os.path.join(outDir, "sys", f).replace(".ns", ".lnx") + " -silent -genRelocTable -genModuleFile -includeDirectory=" + os.path.join(baseDir, "include") + " -libraryDirectory=" + os.path.join(outDir, "ndk", "lib"))
-        shutil.move(os.path.join(outDir, "sys", f).replace(".ns", ".lmd"), os.path.join(outDir, "ndk", "lib", f.replace(".ns", ".lmd")))
+        os.system("python3 " + os.path.join(toolsDir, "ntrasm.py") + " " + os.path.join(baseDir, "sys", f, f + ".ns") + " " + os.path.join(outDir, "sys", f) + ".lnx -silent -genRelocTable -genModuleFile -includeDirectory=" + os.path.join(baseDir, "include") + " -libraryDirectory=" + os.path.join(outDir, "ndk", "lib"))
+        shutil.move(os.path.join(outDir, "sys", f) + ".lmd", os.path.join(outDir, "ndk", "lib", f + ".lmd"))
     print("Building application binaries...")
     os.system("mkdir " + os.path.join(outDir, "bin"))
     for f in os.listdir(os.path.join(baseDir, "bin")):

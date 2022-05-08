@@ -1,7 +1,7 @@
 ; -----------------------------------------------
 ;  Neutrino Operating System Project
 ;  Neutrino OS System Library
-;  by Kovacs Lorand -- 2020.12.29.
+;  by Kovacs Lorand -- 2022.03.05.
 ; -----------------------------------------------
 
 #define TYPE_NULL 0

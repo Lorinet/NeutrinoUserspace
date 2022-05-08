@@ -41,3 +41,5 @@ NtrGetTime:39
 NtrTimerInterrupt:40
 NtrKernelExec:41
 NtrSuspendProcessEx:42
+NtrSystemShutdown:43
+NtrSystemReboot:44
